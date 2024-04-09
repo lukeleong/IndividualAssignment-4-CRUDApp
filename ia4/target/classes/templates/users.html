@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Existing Users</title>
+    </head>
+    <body>
+        <div class="topnav">
+            <a class="active" href="#home">Existing User</a>
+            <a href="userForm">New Users</a>
+        </div>
+        <h2>Existing Users</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Admin</th>
+                    <th>Points</th>
+                    <th>Delete</th> 
+                    <th colspan="4">Update</th> 
+                </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="user : ${users}">
+                <tr>
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.firstName}"></td>
+                    <td th:text="${user.lastName}"></td>
+                    <td th:text="${user.admin} ? 'Yes' : 'No'"></td>
+                    <td th:text="${user.numPoints}"></td>
+                    <td>
+                        <form action="/deleteUser" method="post" class="action-form">
+                            <input type="hidden" name="id" th:value="${user.id}">
+                            <input type="submit" value="Delete">
+                        </form>
+                    </td>
+                    <td colspan="4"> 
+                        <form action="/updateUser" method="post" class="action-form">
+                            <input type="hidden" name="id" th:value="${user.id}">
+                            <input type="text" name="firstName" placeholder="New First Name">
+                            <input type="text" name="lastName" placeholder="New Last Name">
+                            <input type="checkbox" name="isAdmin" value="true"> Admin<br>
+                            <input type="number" name="numPoints" placeholder="New Points">
+                            <input type="submit" value="Update">
+                        </form>
+                    </td>
+                </tr>
+            </th:block>
+        </tbody>
+    </table>
+</body>
+</html>
